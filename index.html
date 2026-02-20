@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Generator RPP MI — Kerangka + Rubrik + LKPD</title>
+<style>
+  :root{ --ink:#0f172a; --muted:#475569; --accent:#16a34a; --bg:#f8fafc; --line:#e5e7eb; }
+  *{ box-sizing:border-box; } body{ margin:0; font-family:Segoe UI,system-ui,-apple-system,Roboto,"Noto Sans",Arial; color:var(--ink); background:var(--bg);}
+  .wrap{ max-width:1200px; margin:24px auto; padding:0 16px; }
+  .grid{ display:grid; gap:16px; grid-template-columns:1fr; } @media(min-width:1100px){ .grid{ grid-template-columns:1fr 1fr; } }
+  .card{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px; }
+  h1{ margin:0 0 8px; font-size:22px;} h2{ margin:14px 0 10px; font-size:18px; color:#065f46;}
+  label{ font-size:13px; color:#334155; display:block; margin-bottom:6px; }
+  input,textarea,select{ width:100%; border:1px solid #cbd5e1; border-radius:10px; padding:10px 12px; font-size:14px; background:#fff; }
+  textarea{ min-height:90px; resize:vertical; } .row{ display:grid; gap:10px; grid-template-columns:1fr 1fr; }
+  .btns{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+  button{ background:var(--accent); color:#fff; border:none; padding:10px 14px; border-radius:999px; cursor:pointer; }
+  button.secondary{ background:#0f172a; opacity:.9; } button.outline{ background:#fff; color:#0f172a; border:1px solid #cbd5e1; }
+  .out{ background:#fff; border:1px dashed #cbd5e1; border-radius:12px; padding:16px; min-height:200px; }
+  .muted{ color:#64748b; font-size:12px; }
+  /* printable */
+  @media print{ .noprint{ display:none !important; } .printpage{ border:none; box-shadow:none; } }
+  /* RPP layout */
+  .rpp{ color:#000; font-size:12.5pt; line-height:1.45; }
+  .rpp h3{ margin:0; text-align:center; font-size:14.5pt; }
+  .subtle{ color:#334155; }
+  .sec-title{ font-weight:700; margin:14px 0 6px; }
+  .tbl{ width:100%; border-collapse:collapse; } .tbl td,.tbl th{ border:1px solid #94a3b8; padding:6px 8px; vertical-align:top; }
+  .tbl.kv td:nth-child(1){ width:220px; background:#f1f5f9; font-weight:600; }
+  .sig-grid{ width:100%; display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:16px; }
+  .tac{ text-align:center; } .mb8{ margin-bottom:8px; } .mb12{ margin-bottom:12px;} .mb16{ margin-bottom:16px;} .mb24{ margin-bottom:24px;}
+  .ul{ margin:6px 0 6px 18px; } .roman{ list-style:lower-alpha; margin-left:22px; } .page-break{ page-break-before:always; }
+  /* rubrik builder */
+  .rubrik-tools{ display:flex; gap:8px; flex-wrap:wrap; margin:8px 0; }
+  .rubrik-table input[type="number"]{ width:80px; }
+  .right{ text-align:right; }
+  .small{ font-size:12px; color:#475569; }
+  .lkpd-box{ border:1px solid #cbd5e1; border-radius:10px; padding:10px; margin-bottom:10px; }
+  .tag{ background:#e2fbe8; color:#064e3b; border:1px solid #bbf7d0; border-radius:999px; padding:2px 8px; font-size:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="noprint" style="margin-bottom:8px;">
+    <h1>Generator RPP (MI) — Sesuai Kerangka + Rubrik & LKPD</h1>
+    <div class="muted">Isi formulir → klik <b>Buat RPP</b> → <b>Cetak/PDF</b> atau <b>Unduh .doc</b>.</div>
+  </div>
+
+  <div class="grid noprint">
+    <div class="card">
+      <h2>Identitas</h2>
+      <div class="row">
+        <div><label>Nama Madrasah</label><input id="madrasah" placeholder="MI ..." /></div>
+        <div><label>Tahun Pelajaran</label><input id="tahun" placeholder="2025/2026" /></div>
+      </div>
+      <div class="row">
+        <div><label>Nama Guru</label><input id="guru" placeholder="Nama Guru" /></div>
+        <div><label>NIP Guru (opsional)</label><input id="nipGuru" placeholder="NIP. ...." /></div>
+      </div>
+      <div class="row">
+        <div><label>Mata Pelajaran</label><input id="mapel" placeholder="Tematik/Matematika/..." /></div>
+        <div><label>Materi Pokok</label><input id="materiPokok" placeholder="..." /></div>
+      </div>
+      <div class="row">
+        <div><label>Kelas / Semester</label><input id="kelas" placeholder="IV / Genap" /></div>
+        <div><label>Alokasi Waktu</label><input id="alokasi" placeholder="2 x 35 menit" /></div>
+      </div>
+      <div><label>Model Pedagogis</label><input id="model" placeholder="Problem Based Learning / Project Based Learning / dll." /></div>
+
+      <h2>Identifikasi</h2>
+      <div><label>1) Kesiapan Murid</label><textarea id="kesiapan" placeholder="- ..."></textarea></div>
+      <div><label>2) Dimensi Profil Lulusan (DPL)</label><textarea id="dpl" placeholder="- ..."></textarea></div>
+      <div><label>3) Topik Kurikulum Berbasis Cinta (KBC)</label><textarea id="kbcTopik" placeholder="- ..."></textarea></div>
+      <div><label>4) Materi Insersi KBC</label><textarea id="kbcInsersi" placeholder="- ..."></textarea></div>
+
+      <h2>Desain Pembelajaran</h2>
+      <div><label>1) Capaian Pembelajaran</label><textarea id="cp" placeholder="- ..."></textarea></div>
+      <div><label>2) Lintas Disiplin Ilmu</label><textarea id="lintas" placeholder="- ..."></textarea></div>
+      <div><label>3) Tujuan Pembelajaran</label><textarea id="tp" placeholder="- ..."></textarea></div>
+      <div><label>4) Praktik Pedagogis</label><textarea id="praktik" placeholder="- ..."></textarea></div>
+      <div><label>5) Kemitraan Pembelajaran</label><textarea id="kemitraan" placeholder="- ..."></textarea></div>
+      <div><label>6) Lingkungan Pembelajaran</label><textarea id="lingkungan" placeholder="- ..."></textarea></div>
+      <div><label>7) Pemanfaatan Digital</label><textarea id="digital" placeholder="- ..."></textarea></div>
+
+      <h2>Pengalaman Belajar</h2>
+      <div class="row">
+        <div><label>Pertemuan Ke-</label><input id="pertemuan" type="number" min="1" placeholder="1" /></div>
+        <div><label>Tanggal (opsional)</label><input id="tanggal" type="date" /></div>
+      </div>
+      <div><label>1) Kegiatan Awal</label><textarea id="awal" placeholder="- ..."></textarea></div>
+      <div>
+        <label>2) Kegiatan Inti</label>
+        <div class="row">
+          <div><label>a) Memahami</label><textarea id="memahami" placeholder="- ..."></textarea></div>
+          <div><label>b) Mengaplikasi</label><textarea id="mengaplikasi" placeholder="- ..."></textarea></div>
+        </div>
+        <div style="margin-top:10px;"><label>c) Merefleksi</label><textarea id="merefleksi" placeholder="- ..."></textarea></div>
+      </div>
+      <div><label>3) Kegiatan Penutup</label><textarea id="penutup" placeholder="- ..."></textarea></div>
+
+      <h2>Asesmen Pembelajaran</h2>
+      <div><label>1) Asesmen pada Awal Pembelajaran</label><textarea id="asesmenAwal" placeholder="- ..."></textarea></div>
+      <div><label>2) Asesmen pada Proses Pembelajaran</label><textarea id="asesmenProses" placeholder="- ..."></textarea></div>
+      <div><label>3) Asesmen pada Akhir Pembelajaran</label><textarea id="asesmenAkhir" placeholder="- ..."></textarea></div>
+
+      <h2>Penandatangan</h2>
+      <div class="row">
+        <div><label>Lokasi</label><input id="lokasi" placeholder="(Kota/Kab.)" /></div>
+        <div><label>Tanggal Dokumen</label><input id="tglDoc" type="date" /></div>
+      </div>
+      <div class="row">
+        <div><label>Nama Kepala Madrasah</label><input id="kepsek" placeholder="..." /></div>
+        <div><label>NIP Kepala Madrasah (opsional)</label><input id="nipKepsek" placeholder="NIP. ...." /></div>
+      </div>
+
+      <h2>Rubrik Penilaian (Lampiran 1)</h2>
+      <div class="rubrik-tools">
+        <span class="tag">Aspek default: Sikap, Pengetahuan, Keterampilan</span>
+        <button class="outline" onclick="addRubrikRow()">+ Tambah Kriteria</button>
+        <button class="outline" onclick="resetRubrik()">Reset Rubrik</button>
+      </div>
+      <div class="small">Isikan <b>Bobot</b> (0–100), <b>Skor</b> (1–4). Nilai Akhir = Σ (Skor×Bobot)/ΣBobot.</div>
+      <table id="rubrikTable" class="tbl rubrik-table" style="margin-top:8px;">
+        <thead>
+          <tr>
+            <th style="width:130px;">Aspek</th>
+            <th style="width:220px;">Kriteria / Indikator</th>
+            <th>Deskriptor Skor 4</th>
+            <th>Skor 3</th><th>Skor 2</th><th>Skor 1</th>
+            <th style="width:90px;">Bobot</th>
+            <th style="width:80px;">Skor</th>
+            <th style="width:110px;">Skor×Bobot</th>
+          </tr>
+        </thead>
+        <tbody id="rubrikBody"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6" class="right"><b>Total Bobot</b></td>
+            <td class="right"><span id="totalBobot">0</span></td>
+            <td class="right"><b>NA</b></td>
+            <td class="right"><b><span id="nilaiAkhir">0</span></b></td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <h2>LKPD (Lampiran 2)</h2>
+      <div class="lkpd-box">
+        <div class="row">
+          <div><label>Judul LKPD</label><input id="lkpdJudul" placeholder="..." /></div>
+          <div><label>TP/CP yang diukur</label><input id="lkpdTp" placeholder="..." /></div>
+        </div>
+        <div><label>Tujuan</label><textarea id="lkpdTujuan" placeholder="- ..."></textarea></div>
+        <div><label>Petunjuk (Siswa/Guru)</label><textarea id="lkpdPetunjuk" placeholder="- ..."></textarea></div>
+        <div class="row">
+          <div><label>Alat & Bahan</label><textarea id="lkpdAlat" placeholder="- ..."></textarea></div>
+          <div><label>Keselamatan/K3 (jika ada)</label><textarea id="lkpdK3" placeholder="- ..."></textarea></div>
+        </div>
+        <div><label>Langkah Kegiatan</label><textarea id="lkpdLangkah" placeholder="1) ...&#10;2) ..."></textarea></div>
+        <div>
+          <label>Soal/Tugas</label>
+          <div class="rubrik-tools">
+            <button class="outline" onclick="addSoal()">+ Tambah Soal</button>
+            <button class="outline" onclick="resetSoal()">Reset Soal</button>
+          </div>
+          <ol id="daftarSoal" class="ul"></ol>
+        </div>
+        <div><label>Lembar Jawaban</label><textarea id="lkpdJawaban" placeholder="(Kosongkan bila jawaban ditulis di buku/LKPD terpisah)"></textarea></div>
+        <div>
+          <label>Rubrik Penilaian LKPD (opsional)</label>
+          <div class="rubrik-tools"><button class="outline" onclick="addRubrikLkpdRow()">+ Tambah Kriteria LKPD</button></div>
+          <table id="rubrikLkpdTable" class="tbl rubrik-table">
+            <thead><tr>
+              <th style="width:220px;">Kriteria</th>
+              <th>Skor 4</th><th>3</th><th>2</th><th>1</th>
+              <th style="width:90px;">Bobot</th>
+              <th style="width:80px;">Skor</th>
+              <th style="width:110px;">Skor×Bobot</th>
+            </tr></thead>
+            <tbody id="rubrikLkpdBody"></tbody>
+            <tfoot>
+              <tr><td colspan="5" class="right"><b>Total Bobot</b></td>
+                  <td class="right"><span id="totalBobotLkpd">0</span></td>
+                  <td class="right"><b>NA</b></td>
+                  <td class="right"><b><span id="nilaiAkhirLkpd">0</span></b></td></tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <h2>Lampiran 3</h2>
+      <label>Asesmen pada Akhir Pembelajaran (Soal/Uraian)</label>
+      <textarea id="lampAkhir" placeholder="(lengkapi)"></textarea>
+
+      <div class="btns">
+        <button onclick="generate()">Buat RPP</button>
+        <button class="secondary" onclick="copyOut()">Salin (teks)</button>
+        <button class="outline" onclick="downloadDoc()">Unduh ke Word (.doc)</button>
+        <button class="outline" onclick="window.print()">Cetak / PDF</button>
+      </div>
+      <div class="muted">Tips: Atur margin A4 saat cetak. Untuk logo/kop, tambah di Word setelah unduhan.</div>
+    </div>
+
+    <div class="card printpage">
+      <h2 class="noprint">Pratinjau RPP</h2>
+      <div id="output" class="out">(RPP akan muncul di sini setelah Anda klik “Buat RPP”)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TEMPLATE CETAK ===== -->
+<template id="tpl">
+  <div class="rpp">
+    <h3>PERENCANAAN PEMBELAJARAN (RPP)<br/><span class="subtle">Madrasah Ibtidaiyah</span></h3>
+    <div class="mb12 tac subtle">Materi Pokok: <b>{{materiPokok}}</b></div>
+
+    <div class="sec-title">A. IDENTITAS</div>
+    <table class="tbl kv mb12">
+      <tr><td>Nama Madrasah</td><td>{{madrasah}}</td></tr>
+      <tr><td>Nama Guru</td><td>{{guru}}</td></tr>
+      <tr><td>Mata Pelajaran</td><td>{{mapel}}</td></tr>
+      <tr><td>Materi Pokok</td><td>{{materiPokok}}</td></tr>
+      <tr><td>Kelas / Semester</td><td>{{kelas}}</td></tr>
+      <tr><td>Alokasi Waktu</td><td>{{alokasi}}</td></tr>
+      <tr><td>Tahun Pelajaran</td><td>{{tahun}}</td></tr>
+      <tr><td>Model Pedagogis</td><td>{{model}}</td></tr>
+    </table>
+
+    <div class="sec-title">B. IDENTIFIKASI</div>
+    <ol class="ul mb12" style="list-style:decimal;">
+      <li><b>Kesiapan Murid</b><br/>{{kesiapan}}</li>
+      <li><b>Dimensi Profil Lulusan (DPL)</b><br/>{{dpl}}</li>
+      <li><b>Topik Kurikulum Berbasis Cinta (KBC)</b><br/>{{kbcTopik}}</li>
+      <li><b>Materi Insersi KBC</b><br/>{{kbcInsersi}}</li>
+    </ol>
+
+    <div class="sec-title">C. DESAIN PEMBELAJARAN</div>
+    <ol class="ul mb12" style="list-style:decimal;">
+      <li><b>Capaian Pembelajaran</b><br/>{{cp}}</li>
+      <li><b>Lintas Disiplin Ilmu</b><br/>{{lintas}}</li>
+      <li><b>Tujuan Pembelajaran</b><br/>{{tp}}</li>
+      <li><b>Praktik Pedagogis</b><br/>{{praktik}}</li>
+      <li><b>Kemitraan Pembelajaran</b><br/>{{kemitraan}}</li>
+      <li><b>Lingkungan Pembelajaran</b><br/>{{lingkungan}}</li>
+      <li><b>Pemanfaatan Digital</b><br/>{{digital}}</li>
+    </ol>
+
+    <div class="sec-title">D. PENGALAMAN BELAJAR</div>
+    <div class="mb8"><b>Langkah-langkah Pembelajaran</b></div>
+    <div class="mb8"><b>Pertemuan Ke-{{pertemuan}}</b>{{tanggalStr}}</div>
+    <ol class="ul mb12" style="list-style:decimal;">
+      <li><b>Kegiatan Awal</b><br/>{{awal}}</li>
+      <li><b>Kegiatan Inti</b>
+        <ol class="roman">
+          <li><b>Memahami</b><br/>{{memahami}}</li>
+          <li><b>Mengaplikasi</b><br/>{{mengaplikasi}}</li>
+          <li><b>Merefleksi</b><br/>{{merefleksi}}</li>
+        </ol>
+      </li>
+      <li><b>Kegiatan Penutup</b><br/>{{penutup}}</li>
+    </ol>
+
+    <div class="sec-title">E. ASESMEN PEMBELAJARAN</div>
+    <ol class="ul mb12" style="list-style:decimal;">
+      <li><b>Asesmen pada Awal Pembelajaran</b><br/>{{asesmenAwal}}</li>
+      <li><b>Asesmen pada Proses Pembelajaran</b><br/>{{asesmenProses}}</li>
+      <li><b>Asesmen pada Akhir Pembelajaran</b><br/>{{asesmenAkhir}}</li>
+    </ol>
+
+    <div class="page-break"></div>
+
+    <div class="sec-title">PENGESAHAN</div>
+    <div class="sig-grid">
+      <div class="tac">
+        <div class="mb8">Mengetahui<br/><b>Kepala Madrasah</b></div>
+        <div style="height:80px;"></div>
+        <div><b>{{kepsek}}</b><br/>NIP. {{nipKepsek}}</div>
+      </div>
+      <div class="tac">
+        <div class="mb8">{{lokasi}}, {{tglDocStr}}<br/><b>Guru Kelas/Mapel</b></div>
+        <div style="height:80px;"></div>
+        <div><b>{{guru}}</b><br/>NIP. {{nipGuru}}</div>
+      </div>
+    </div>
+
+    <div class="sec-title mb8">F. LAMPIRAN RPP</div>
+
+    <div class="mb16">
+      <b>1. Rubrik Penilaian</b>
+      <table class="tbl" style="margin-top:6px;">
+        <thead>
+          <tr><th>Aspek</th><th>Kriteria/Indikator</th><th>Skor 4</th><th>3</th><th>2</th><th>1</th><th>Bobot</th><th>Skor</th><th>Skor×Bobot</th></tr>
+        </thead>
+        <tbody>{{rubrikRows}}</tbody>
+        <tfoot><tr><td colspan="6" class="right"><b>Total Bobot</b></td><td class="right">{{totalBobot}}</td><td class="right"><b>NA</b></td><td class="right"><b>{{nilaiAkhir}}</b></td></tr></tfoot>
+      </table>
+      <div class="small">NA = Σ(Skor×Bobot)/ΣBobot</div>
+    </div>
+
+    <div class="mb16">
+      <b>2. Lembar Kerja Peserta Didik (LKPD)</b>
+      <table class="tbl kv mb8">
+        <tr><td>Judul LKPD</td><td>{{lkpdJudul}}</td></tr>
+        <tr><td>TP/CP</td><td>{{lkpdTp}}</td></tr>
+        <tr><td>Tujuan</td><td>{{lkpdTujuan}}</td></tr>
+        <tr><td>Petunjuk</td><td>{{lkpdPetunjuk}}</td></tr>
+        <tr><td>Alat & Bahan</td><td>{{lkpdAlat}}</td></tr>
+        <tr><td>Keselamatan/K3</td><td>{{lkpdK3}}</td></tr>
+        <tr><td>Langkah Kegiatan</td><td>{{lkpdLangkah}}</td></tr>
+      </table>
+      <div><b>Soal/Tugas:</b><ol class="ul">{{lkpdSoal}}</ol></div>
+      <div class="mb8"><b>Lembar Jawaban</b><br/>{{lkpdJawaban}}</div>
+
+      <div><b>Rubrik Penilaian LKPD</b>
+        <table class="tbl" style="margin-top:6px;">
+          <thead>
+            <tr><th>Kriteria</th><th>Skor 4</th><th>3</th><th>2</th><th>1</th><th>Bobot</th><th>Skor</th><th>Skor×Bobot</th></tr>
+          </thead>
+          <tbody>{{rubrikLkpdRows}}</tbody>
+          <tfoot><tr><td colspan="5" class="right"><b>Total Bobot</b></td><td class="right">{{totalBobotLkpd}}</td><td class="right"><b>NA</b></td><td class="right"><b>{{nilaiAkhirLkpd}}</b></td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="mb16">
+      <b>3. Asesmen pada Akhir Pembelajaran</b><br/>{{lampAkhir}}
+    </div>
+  </div>
+</template>
+
+<script>
+  // Helpers
+  const $ = id => document.getElementById(id);
+  const num = v => isNaN(parseFloat(v)) ? 0 : parseFloat(v);
+
+  // ===== Rubrik umum =====
+  function rubrikRowTemplate(aspek='Pengetahuan'){
+    return `
+      <tr>
+        <td><input value="${aspek}" /></td>
+        <td><textarea placeholder="- indikator ..."></textarea></td>
+        <td><textarea placeholder="Sangat baik (tuntas, lengkap, tepat)"></textarea></td>
+        <td><textarea placeholder="Baik"></textarea></td>
+        <td><textarea placeholder="Cukup"></textarea></td>
+        <td><textarea placeholder="Perlu bimbingan"></textarea></td>
+        <td><input type="number" min="0" step="1" value="25" oninput="hitungRubrik()"/></td>
+        <td><input type="number" min="1" max="4" step="1" value="3" oninput="hitungRubrik()"/></td>
+        <td class="right"><span>0</span></td>
+      </tr>`;
+  }
+  function addRubrikRow(){
+    $('rubrikBody').insertAdjacentHTML('beforeend', rubrikRowTemplate(['Sikap','Pengetahuan','Keterampilan'][Math.floor(Math.random()*3)]));
+    hitungRubrik();
+  }
+  function resetRubrik(){
+    $('rubrikBody').innerHTML = '';
+    ['Sikap','Pengetahuan','Keterampilan'].forEach(a => $('rubrikBody').insertAdjacentHTML('beforeend', rubrikRowTemplate(a)));
+    hitungRubrik();
+  }
+  function hitungRubrik(){
+    let totalB=0, totalSB=0;
+    [...$('rubrikBody').querySelectorAll('tr')].forEach(tr=>{
+      const bobot = num(tr.querySelector('td:nth-child(7) input').value);
+      const skor  = num(tr.querySelector('td:nth-child(8) input').value);
+      const sb = bobot*skor;
+      tr.querySelector('td:nth-child(9) span').textContent = sb.toFixed(1);
+      totalB += bobot; totalSB += sb;
+    });
+    $('totalBobot').textContent = totalB.toFixed(0);
+    $('nilaiAkhir').textContent = totalB>0 ? (totalSB/totalB).toFixed(2) : '0';
+  }
+
+  // ===== Rubrik LKPD =====
+  function rubrikLkpdRowTemplate(){
+    return `
+      <tr>
+        <td><textarea placeholder="- ketepatan jawaban / kerapian / kerja sama ..."></textarea></td>
+        <td><textarea placeholder="Sangat baik"></textarea></td>
+        <td><textarea placeholder="Baik"></textarea></td>
+        <td><textarea placeholder="Cukup"></textarea></td>
+        <td><textarea placeholder="Perlu bimbingan"></textarea></td>
+        <td><input type="number" min="0" step="1" value="25" oninput="hitungRubrikLkpd()"/></td>
+        <td><input type="number" min="1" max="4" step="1" value="3" oninput="hitungRubrikLkpd()"/></td>
+        <td class="right"><span>0</span></td>
+      </tr>`;
+  }
+  function addRubrikLkpdRow(){
+    $('rubrikLkpdBody').insertAdjacentHTML('beforeend', rubrikLkpdRowTemplate());
+    hitungRubrikLkpd();
+  }
+  function hitungRubrikLkpd(){
+    let totalB=0, totalSB=0;
+    [...$('rubrikLkpdBody').querySelectorAll('tr')].forEach(tr=>{
+      const bobot = num(tr.querySelector('td:nth-child(6) input').value);
+      const skor  = num(tr.querySelector('td:nth-child(7) input').value);
+      const sb = bobot*skor;
+      tr.querySelector('td:nth-child(8) span').textContent = sb.toFixed(1);
+      totalB += bobot; totalSB += sb;
+    });
+    $('totalBobotLkpd').textContent = totalB.toFixed(0);
+    $('nilaiAkhirLkpd').textContent = totalB>0 ? (totalSB/totalB).toFixed(2) : '0';
+  }
+
+  // ===== Soal LKPD =====
+  function soalItemTemplate(i){
+    return `<li contenteditable="true">Soal ${i}: (klik untuk ubah)</li>`;
+  }
+  function addSoal(){
+    const ol = $('daftarSoal');
+    const i = ol.children.length+1;
+    ol.insertAdjacentHTML('beforeend', soalItemTemplate(i));
+  }
+  function resetSoal(){ $('daftarSoal').innerHTML=''; }
+
+  // ===== Init default rows =====
+  window.addEventListener('DOMContentLoaded', ()=>{
+    resetRubrik(); addRubrikLkpdRow();
+  });
+
+  // ===== Generate RPP =====
+  function val(id){ return ($(id)?.value || '').trim(); }
+  function textOfList(ol){
+    return [...ol.children].map(li=>`<li>${li.innerHTML}</li>`).join('');
+  }
+
+  function collectRubrikRows(){
+    let rows='';
+    [...$('rubrikBody').querySelectorAll('tr')].forEach(tr=>{
+      const tds = tr.querySelectorAll('td');
+      const aspek = tds[0].querySelector('input').value || '-';
+      const krit  = tds[1].querySelector('textarea').value || '-';
+      const d4    = tds[2].querySelector('textarea').value || '';
+      const d3    = tds[3].querySelector('textarea').value || '';
+      const d2    = tds[4].querySelector('textarea').value || '';
+      const d1    = tds[5].querySelector('textarea').value || '';
+      const bobot = tds[6].querySelector('input').value || '0';
+      const skor  = tds[7].querySelector('input').value || '0';
+      const sb    = tds[8].querySelector('span').textContent || '0';
+      rows += `<tr><td>${aspek}</td><td>${krit}</td><td>${d4}</td><td>${d3}</td><td>${d2}</td><td>${d1}</td><td class="right">${bobot}</td><td class="right">${skor}</td><td class="right">${sb}</td></tr>`;
+    });
+    return rows;
+  }
+  function collectRubrikLkpdRows(){
+    let rows='';
+    [...$('rubrikLkpdBody').querySelectorAll('tr')].forEach(tr=>{
+      const tds = tr.querySelectorAll('td');
+      const k   = tds[0].querySelector('textarea').value || '-';
+      const d4  = tds[1].querySelector('textarea').value || '';
+      const d3  = tds[2].querySelector('textarea').value || '';
+      const d2  = tds[3].querySelector('textarea').value || '';
+      const d1  = tds[4].querySelector('textarea').value || '';
+      const bobot = tds[5].querySelector('input').value || '0';
+      const skor  = tds[6].querySelector('input').value || '0';
+      const sb    = tds[7].querySelector('span').textContent || '0';
+      rows += `<tr><td>${k}</td><td>${d4}</td><td>${d3}</td><td>${d2}</td><td>${d1}</td><td class="right">${bobot}</td><td class="right">${skor}</td><td class="right">${sb}</td></tr>`;
+    });
+    return rows;
+  }
+
+  function generate(){
+    // dasar
+    const data = {
+      madrasah: val('madrasah') || '-',
+      tahun: val('tahun') || '-',
+      guru: val('guru') || '-',
+      nipGuru: val('nipGuru') || '....................',
+      mapel: val('mapel') || '-',
+      materiPokok: val('materiPokok') || '-',
+      kelas: val('kelas') || '-',
+      alokasi: val('alokasi') || '-',
+      model: val('model') || '-',
+      kesiapan: val('kesiapan') || '(lengkapi)',
+      dpl: val('dpl') || '(lengkapi)',
+      kbcTopik: val('kbcTopik') || '(lengkapi)',
+      kbcInsersi: val('kbcInsersi') || '(lengkapi)',
+      cp: val('cp') || '(lengkapi)',
+      lintas: val('lintas') || '(lengkapi)',
+      tp: val('tp') || '(lengkapi)',
+      praktik: val('praktik') || '(lengkapi)',
+      kemitraan: val('kemitraan') || '(lengkapi)',
+      lingkungan: val('lingkungan') || '(lengkapi)',
+      digital: val('digital') || '(lengkapi)',
+      pertemuan: val('pertemuan') || '....',
+      tanggal: val('tanggal'),
+      awal: val('awal') || '(lengkapi)',
+      memahami: val('memahami') || '(lengkapi)',
+      mengaplikasi: val('mengaplikasi') || '(lengkapi)',
+      merefleksi: val('merefleksi') || '(lengkapi)',
+      penutup: val('penutup') || '(lengkapi)',
+      asesmenAwal: val('asesmenAwal') || '(lengkapi)',
+      asesmenProses: val('asesmenProses') || '(lengkapi)',
+      asesmenAkhir: val('asesmenAkhir') || '(lengkapi)',
+      lokasi: val('lokasi') || '................',
+      tglDoc: val('tglDoc'),
+      kepsek: val('kepsek') || '(...........................)',
+      nipKepsek: val('nipKepsek') || '....................',
+      lkpdJudul: val('lkpdJudul') || '-',
+      lkpdTp: val('lkpdTp') || '-',
+      lkpdTujuan: val('lkpdTujuan') || '(lengkapi)',
+      lkpdPetunjuk: val('lkpdPetunjuk') || '(lengkapi)',
+      lkpdAlat: val('lkpdAlat') || '(lengkapi)',
+      lkpdK3: val('lkpdK3') || '(lengkapi)',
+      lkpdLangkah: val('lkpdLangkah') || '(lengkapi)',
+      lkpdJawaban: val('lkpdJawaban') || '(lengkapi)',
+      lampAkhir: val('lampAkhir') || '(lengkapi)'
+    };
+
+    // tanggal
+    const tanggalStr = data.tanggal ? ` — ${new Date(data.tanggal).toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'})}` : '';
+    const tglDocStr  = data.tglDoc  ? new Date(data.tglDoc).toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'}) : 'tgl. bulan, tahun';
+
+    // rubrik
+    hitungRubrik(); hitungRubrikLkpd();
+    const rubrikRows = collectRubrikRows();
+    const totalBobot = $('totalBobot').textContent;
+    const nilaiAkhir = $('nilaiAkhir').textContent;
+
+    const rubrikLkpdRows = collectRubrikLkpdRows();
+    const totalBobotLkpd = $('totalBobotLkpd').textContent;
+    const nilaiAkhirLkpd = $('nilaiAkhirLkpd').textContent;
+
+    // soal
+    const lkpdSoal = textOfList($('daftarSoal')) || '<li>(lengkapi)</li>';
+
+    const tpl = $('tpl').innerHTML
+      .replaceAll('{{madrasah}}', data.madrasah)
+      .replaceAll('{{tahun}}', data.tahun)
+      .replaceAll('{{guru}}', data.guru)
+      .replaceAll('{{nipGuru}}', data.nipGuru)
+      .replaceAll('{{mapel}}', data.mapel)
+      .replaceAll('{{materiPokok}}', data.materiPokok)
+      .replaceAll('{{kelas}}', data.kelas)
+      .replaceAll('{{alokasi}}', data.alokasi)
+      .replaceAll('{{model}}', data.model)
+      .replaceAll('{{kesiapan}}', data.kesiapan)
+      .replaceAll('{{dpl}}', data.dpl)
+      .replaceAll('{{kbcTopik}}', data.kbcTopik)
+      .replaceAll('{{kbcInsersi}}', data.kbcInsersi)
+      .replaceAll('{{cp}}', data.cp)
+      .replaceAll('{{lintas}}', data.lintas)
+      .replaceAll('{{tp}}', data.tp)
+      .replaceAll('{{praktik}}', data.praktik)
+      .replaceAll('{{kemitraan}}', data.kemitraan)
+      .replaceAll('{{lingkungan}}', data.lingkungan)
+      .replaceAll('{{digital}}', data.digital)
+      .replaceAll('{{pertemuan}}', data.pertemuan)
+      .replaceAll('{{tanggalStr}}', tanggalStr)
+      .replaceAll('{{awal}}', data.awal)
+      .replaceAll('{{memahami}}', data.memahami)
+      .replaceAll('{{mengaplikasi}}', data.mengaplikasi)
+      .replaceAll('{{merefleksi}}', data.merefleksi)
+      .replaceAll('{{penutup}}', data.penutup)
+      .replaceAll('{{asesmenAwal}}', data.asesmenAwal)
+      .replaceAll('{{asesmenProses}}', data.asesmenProses)
+      .replaceAll('{{asesmenAkhir}}', data.asesmenAkhir)
+      .replaceAll('{{lokasi}}', data.lokasi)
+      .replaceAll('{{tglDocStr}}', tglDocStr)
+      .replaceAll('{{kepsek}}', data.kepsek)
+      .replaceAll('{{nipKepsek}}', data.nipKepsek)
+      .replaceAll('{{rubrikRows}}', rubrikRows)
+      .replaceAll('{{totalBobot}}', totalBobot)
+      .replaceAll('{{nilaiAkhir}}', nilaiAkhir)
+      .replaceAll('{{lkpdJudul}}', data.lkpdJudul)
+      .replaceAll('{{lkpdTp}}', data.lkpdTp)
+      .replaceAll('{{lkpdTujuan}}', data.lkpdTujuan)
+      .replaceAll('{{lkpdPetunjuk}}', data.lkpdPetunjuk)
+      .replaceAll('{{lkpdAlat}}', data.lkpdAlat)
+      .replaceAll('{{lkpdK3}}', data.lkpdK3)
+      .replaceAll('{{lkpdLangkah}}', data.lkpdLangkah)
+      .replaceAll('{{lkpdSoal}}', lkpdSoal)
+      .replaceAll('{{lkpdJawaban}}', data.lkpdJawaban)
+      .replaceAll('{{rubrikLkpdRows}}', rubrikLkpdRows)
+      .replaceAll('{{totalBobotLkpd}}', totalBobotLkpd)
+      .replaceAll('{{nilaiAkhirLkpd}}', nilaiAkhirLkpd)
+      .replaceAll('{{lampAkhir}}', data.lampAkhir);
+
+    $('output').innerHTML = tpl;
+  }
+
+  // Salin & unduh
+  function copyOut(){
+    const el = document.createElement('textarea');
+    el.value = $('output').innerText.trim();
+    document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el);
+    alert('Tersalin! Tempel di Microsoft Word jika ingin lanjut format.');
+  }
+  function downloadDoc(){
+    const htmlContent = `<!DOCTYPE html><html><head><meta charset="utf-8">
+    <style>body{font-family:Calibri,Arial,sans-serif;font-size:12pt;line-height:1.4;color:#000;}
+    h3{text-align:center;} table{width:100%;border-collapse:collapse;}
+    td,th{border:1px solid #666;padding:6px 8px;vertical-align:top;}
+    td.kv{background:#f2f2f2;font-weight:bold;width:220px;} ol{margin:6px 0 6px 20px;}
+    </style></head><body>` + $('output').innerHTML + `</body></html>`;
+    const blob = new Blob([htmlContent], {type:"application/msword"});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = "RPP_MI.doc";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }
+</script>
+</body>
+</html>
